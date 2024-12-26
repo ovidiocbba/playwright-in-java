@@ -1,34 +1,15 @@
 package com.ovidiomirada.playwright;
 
-import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
-import org.junit.jupiter.api.AfterEach;
+import com.microsoft.playwright.junit.UsePlaywright;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@UsePlaywright
 public class ASimplePlaywrightTest {
 
-  Playwright playwright;
-  Browser browser;
-  Page page;
-
-  @BeforeEach
-  void setup() {
-    playwright = Playwright.create();
-    browser = playwright.chromium().launch();
-    page = browser.newPage();
-  }
-
-  @AfterEach
-  void teardown() {
-    browser.close();
-    playwright.close();
-  }
-
   @Test
-  void shouldShowThePageTitle() {
+  void shouldShowThePageTitle(Page page) {
     page.navigate("https://practicesoftwaretesting.com");
     String title = page.title();
 
@@ -36,7 +17,7 @@ public class ASimplePlaywrightTest {
   }
 
   @Test
-  void shouldShowSearchTermsInTheTitle() {
+  void shouldShowSearchTermsInTheTitle(Page page) {
     page.navigate("https://practicesoftwaretesting.com");
     page.locator("[placeholder=Search]").fill("Pliers");
     page.locator("button:has-text('Search')").click();
