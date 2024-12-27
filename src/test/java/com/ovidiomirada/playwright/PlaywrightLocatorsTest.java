@@ -67,6 +67,14 @@ public class PlaywrightLocatorsTest {
 
       PlaywrightAssertions.assertThat(page.getByText("MightyCraft Hardware")).isVisible();
     }
+
+    @DisplayName("Using alt text")
+    @Test
+    void byAltText() {
+      page.getByAltText("Combination Pliers").click();
+
+      PlaywrightAssertions.assertThat(page.getByText("ForgeFlex Tools")).isVisible();
+    }
   }
 
   private void openPage() {
