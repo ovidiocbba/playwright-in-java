@@ -1,32 +1,40 @@
 package com.ovidiomirada.playwright;
 
 import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import java.util.Arrays;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 public class ASimplePlaywrightTest {
 
-  Playwright playwright;
-  Browser browser;
+  private static Playwright playwright;
+  private static Browser browser;
+  private static BrowserContext browserContext;
+
   Page page;
 
-  @BeforeEach
-  public void setUp() {
+  @BeforeAll
+  public static void setUpBrowser() {
     playwright = Playwright.create();
     browser = playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false)
         .setArgs(Arrays.asList("--no-sandbox", "--disable-extensions", "--disable-gpu")));
-    page = browser.newPage();
+    browserContext = browser.newContext();
   }
 
-  @AfterEach
-  public void tearDown() {
+  @BeforeEach
+  public void setUp() {
+    page = browserContext.newPage();
+  }
+
+  @AfterAll
+  public static void tearDown() {
     browser.close();
     playwright.close();
   }
