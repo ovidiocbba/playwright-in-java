@@ -28,16 +28,19 @@ public class PlaywrightFormsTest {
       var lastNameField = page.getByLabel("Last name");
       var emailNameField = page.getByLabel("Email");
       var messageField = page.getByLabel("Message");
+      var subjectField = page.getByLabel("Subject");
 
       firstNameField.fill("Sarah-Jane");
       lastNameField.fill("Smith");
       emailNameField.fill("sarah-jane@example.com");
       messageField.fill("Hello, world!");
+      subjectField.selectOption("Warranty");
 
       assertThat(firstNameField).hasValue("Sarah-Jane");
       assertThat(lastNameField).hasValue("Smith");
       assertThat(emailNameField).hasValue("sarah-jane@example.com");
       assertThat(messageField).hasValue("Hello, world!");
+      assertThat(subjectField).hasValue("warranty");
     }
   }
 }
