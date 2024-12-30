@@ -7,6 +7,8 @@ import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.WaitForSelectorState;
 import java.util.Arrays;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -96,6 +98,22 @@ public class PlaywrightWaitsTest {
       screwdriverFilter.click();
 
       assertThat(screwdriverFilter).isChecked();
+    }
+
+    @Test
+    @DisplayName("Should filter products by category")
+    void shouldFilterProductsByCategory() {
+      page.getByRole(AriaRole.MENUBAR).getByText("Categories").click();
+      page.getByRole(AriaRole.MENUBAR).getByText("Power Tools").click();
+
+      page.waitForSelector(".card",
+          new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE)
+              .setTimeout(2000));
+
+      var filteredProducts = page.getByTestId("product-name").allInnerTexts();
+
+      Assertions.assertThat(filteredProducts)
+          .contains("Sheet Sander", "Belt Sander", "Random Orbit Sander");
     }
   }
 }
