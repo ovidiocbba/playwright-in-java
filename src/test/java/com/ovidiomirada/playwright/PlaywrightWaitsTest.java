@@ -10,6 +10,7 @@ import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
@@ -159,6 +160,37 @@ public class PlaywrightWaitsTest {
       page.waitForCondition(() -> page.getByTestId("cart-quantity").textContent().equals("1"));
       // Or
       page.waitForSelector("[data-test='cart-quantity']:has-text('1')");
+    }
+  }
+
+  @Nested
+  class WaitingForAPICalls {
+
+    @Test
+    void sortByDescendingPrice() {
+      page.navigate("https://practicesoftwaretesting.com");
+
+      // Sort by descending price
+      page.waitForResponse("**/products?sort**",
+          () -> {
+            page.getByTestId("sort").selectOption("Price (High - Low)");
+          });
+
+      // Find all the prices on the page
+      var productPrices = page.getByTestId("product-price")
+          .allInnerTexts()
+          .stream()
+          .map(WaitingForAPICalls::extractPrice)
+          .toList();
+
+      // Are the prices in the correct order
+      Assertions.assertThat(productPrices)
+          .isNotEmpty()
+          .isSortedAccordingTo(Comparator.reverseOrder());
+    }
+
+    private static double extractPrice(String price) {
+      return Double.parseDouble(price.replace("$", ""));
     }
   }
 }
