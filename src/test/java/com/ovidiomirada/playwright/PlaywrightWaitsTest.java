@@ -116,4 +116,49 @@ public class PlaywrightWaitsTest {
           .contains("Sheet Sander", "Belt Sander", "Random Orbit Sander");
     }
   }
+
+  @Nested
+  class WaitingForElementsToAppearAndDisappear {
+
+    @BeforeEach
+    void openHomePage() {
+      page.navigate("https://practicesoftwaretesting.com");
+    }
+
+    @Test
+    @DisplayName("It should display a toaster message when an item is added to the cart")
+    void shouldDisplayToasterMessage() {
+      page.getByText("Bolt Cutters").click();
+      page.getByText("Add to cart").click();
+
+      // Wait for the toaster message to appear
+      assertThat(page.getByRole(AriaRole.ALERT)).isVisible();
+      assertThat(page.getByRole(AriaRole.ALERT)).hasText("Product added to shopping cart.");
+
+      page.waitForCondition(() -> page.getByRole(AriaRole.ALERT).isHidden());
+    }
+
+    @Test
+    @DisplayName("Should update the cart item count")
+    void shouldUpdateCartItemCount() {
+      page.getByText("Bolt Cutters").click();
+      page.getByText("Add to cart").click();
+
+      page.waitForCondition(() -> page.getByTestId("cart-quantity").textContent().equals("1"));
+      // page.waitForSelector("[data-test=cart-quantity]:has-text('1')");
+    }
+
+    // Wait for an element to have a particular state
+    @Test
+    @DisplayName("It should display a toaster message when an item is added to the cart")
+    void shouldDisplayTheCartItemCount() {
+      page.getByText("Bolt Cutters").click();
+      page.getByText("Add to cart").click();
+
+      // Wait for the cart quantity to update
+      page.waitForCondition(() -> page.getByTestId("cart-quantity").textContent().equals("1"));
+      // Or
+      page.waitForSelector("[data-test='cart-quantity']:has-text('1')");
+    }
+  }
 }
