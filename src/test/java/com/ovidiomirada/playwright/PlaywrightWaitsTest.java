@@ -1,5 +1,7 @@
 package com.ovidiomirada.playwright;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
@@ -72,6 +75,27 @@ public class PlaywrightWaitsTest {
           .map(img -> img.getAttribute("alt")).toList();
 
       Assertions.assertThat(productImageTitles).contains("Pliers", "Bolt Cutters", "Hammer");
+    }
+  }
+
+  @Nested
+  class AutomaticWaits {
+
+    @BeforeEach
+    void openHomePage() {
+      page.navigate("https://practicesoftwaretesting.com");
+    }
+
+    // Automatic wait
+    @Test
+    @DisplayName("Should wait for the filter checkbox options to appear before clicking")
+    void shouldWaitForTheFilterCheckboxes() {
+
+      var screwdriverFilter = page.getByLabel("Screwdriver");
+
+      screwdriverFilter.click();
+
+      assertThat(screwdriverFilter).isChecked();
     }
   }
 }
