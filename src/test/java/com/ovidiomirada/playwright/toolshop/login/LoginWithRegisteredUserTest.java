@@ -25,4 +25,18 @@ public class LoginWithRegisteredUserTest extends PlaywrightTestCase {
     // Check that we are on the right account page
     assertThat(loginPage.title()).isEqualTo("My account");
   }
+
+  @Test
+  @DisplayName("Should reject a user if they provide a wrong password")
+  void should_reject_user_with_invalid_password() {
+    User user = User.randomUser();
+    UserAPIClient userAPIClient = new UserAPIClient(page);
+    userAPIClient.registerUser(user);
+
+    LoginPage loginPage = new LoginPage(page);
+    loginPage.open();
+    loginPage.loginAs(user.withPassword("wrong-password"));
+
+    assertThat(loginPage.loginErrorMessage()).isEqualTo("Invalid email or password");
+  }
 }
