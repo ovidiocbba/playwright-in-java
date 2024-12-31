@@ -62,4 +62,23 @@ public class RegisterUserAPITest {
       softly.assertThat(response.headers().get("content-type")).contains("application/json");
     });
   }
+
+  @Test
+  void first_name_is_mandatory() {
+    User userWithNoName = User.randomUser().withFirstName(null);
+
+    var response = request.post("/users/register",
+        RequestOptions.create()
+            .setHeader("Content-Type", "application/json")
+            .setData(userWithNoName)
+    );
+
+    assertSoftly(softly -> {
+      softly.assertThat(response.status()).isEqualTo(422);
+      JsonObject responseObject = gson.fromJson(response.text(), JsonObject.class);
+      softly.assertThat(responseObject.has("first_name")).isTrue();
+      String errorMessage = responseObject.get("first_name").getAsString();
+      softly.assertThat(errorMessage).isEqualTo("The first name field is required.");
+    });
+  }
 }
