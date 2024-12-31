@@ -13,6 +13,7 @@ dependencies {
     testImplementation group: 'com.microsoft.playwright', name: 'playwright', version: '1.49.0'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.11.4'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.27.0'
+    testImplementation group: 'net.datafaker', name: 'datafaker', version: '2.4.2'
 }
 
 test {
