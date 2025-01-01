@@ -1,6 +1,9 @@
 package com.ovidiomirada.playwright.toolshop.catalog;
 
+import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Tracing.StartOptions;
+import com.microsoft.playwright.Tracing.StopOptions;
 import com.microsoft.playwright.junit.UsePlaywright;
 import com.ovidiomirada.playwright.HeadlessChromeOptions;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.CartLineItem;
@@ -9,10 +12,13 @@ import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.NavBar;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductDetails;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
+import java.nio.file.Paths;
 import java.util.List;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 @UsePlaywright(HeadlessChromeOptions.class)
 public class AddToCartTest {
@@ -35,6 +41,19 @@ public class AddToCartTest {
     productDetails = new ProductDetails(page);
     navBar = new NavBar(page);
     checkoutCart = new CheckoutCart(page);
+  }
+
+  @BeforeEach
+  void setupTrace(BrowserContext context) {
+    context.tracing()
+        .start(new StartOptions().setSnapshots(true).setScreenshots(true).setSources(true));
+  }
+
+  @AfterEach
+  void recordTrace(TestInfo testInfo, BrowserContext context) {
+    String traceName = testInfo.getDisplayName().replace(" ", "-").toLowerCase();
+    context.tracing()
+        .stop(new StopOptions().setPath(Paths.get("target/traces/trace-" + traceName + ".zip")));
   }
 
   @Test
