@@ -1,6 +1,5 @@
 package com.ovidiomirada.playwright.toolshop.catalog;
 
-
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
 import com.ovidiomirada.playwright.toolshop.fixtures.PlaywrightTestCase;
@@ -9,10 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 
-@Execution(ExecutionMode.SAME_THREAD)
 @DisplayName("Searching for products")
 public class SearchForProductsTest extends PlaywrightTestCase {
 

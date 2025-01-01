@@ -12,6 +12,7 @@ import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.NavBar;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductDetails;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
+import com.ovidiomirada.playwright.toolshop.fixtures.PlaywrightTestCase;
 import java.nio.file.Paths;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -20,8 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-@UsePlaywright(HeadlessChromeOptions.class)
-public class AddToCartTest {
+public class AddToCartTest extends PlaywrightTestCase {
 
   SearchComponent searchComponent;
   ProductList productList;
@@ -30,12 +30,12 @@ public class AddToCartTest {
   CheckoutCart checkoutCart;
 
   @BeforeEach
-  void openHomePage(Page page) {
+  void openHomePage() {
     page.navigate("https://practicesoftwaretesting.com");
   }
 
   @BeforeEach
-  void setUp(Page page) {
+  void setUp() {
     searchComponent = new SearchComponent(page);
     productList = new ProductList(page);
     productDetails = new ProductDetails(page);
@@ -43,21 +43,8 @@ public class AddToCartTest {
     checkoutCart = new CheckoutCart(page);
   }
 
-  @BeforeEach
-  void setupTrace(BrowserContext context) {
-    context.tracing()
-        .start(new StartOptions().setSnapshots(true).setScreenshots(true).setSources(true));
-  }
-
-  @AfterEach
-  void recordTrace(TestInfo testInfo, BrowserContext context) {
-    String traceName = testInfo.getDisplayName().replace(" ", "-").toLowerCase();
-    context.tracing()
-        .stop(new StopOptions().setPath(Paths.get("target/traces/trace-" + traceName + ".zip")));
-  }
-
-  @Test
-  void whenCheckingOutASingleItem(Page page) {
+   @Test
+  void whenCheckingOutASingleItem() {
     searchComponent.searchBy("pliers");
     productList.viewProductDetails("Combination Pliers");
 

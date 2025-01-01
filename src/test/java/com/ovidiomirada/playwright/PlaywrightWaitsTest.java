@@ -20,10 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 
-@Execution(ExecutionMode.SAME_THREAD)
 public class PlaywrightWaitsTest {
 
   protected static Playwright playwright;
@@ -171,21 +168,16 @@ public class PlaywrightWaitsTest {
       page.navigate("https://practicesoftwaretesting.com");
 
       // Sort by descending price
-      page.waitForResponse("**/products?sort**",
-          () -> {
-            page.getByTestId("sort").selectOption("Price (High - Low)");
-          });
+      page.waitForResponse("**/products?sort**", () -> {
+        page.getByTestId("sort").selectOption("Price (High - Low)");
+      });
 
       // Find all the prices on the page
-      var productPrices = page.getByTestId("product-price")
-          .allInnerTexts()
-          .stream()
-          .map(WaitingForAPICalls::extractPrice)
-          .toList();
+      var productPrices = page.getByTestId("product-price").allInnerTexts().stream()
+          .map(WaitingForAPICalls::extractPrice).toList();
 
       // Are the prices in the correct order
-      Assertions.assertThat(productPrices)
-          .isNotEmpty()
+      Assertions.assertThat(productPrices).isNotEmpty()
           .isSortedAccordingTo(Comparator.reverseOrder());
     }
 
