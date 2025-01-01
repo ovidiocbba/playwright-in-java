@@ -1,9 +1,6 @@
 package com.ovidiomirada.playwright.toolshop.catalog;
 
-import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Tracing.StartOptions;
-import com.microsoft.playwright.Tracing.StopOptions;
 import com.microsoft.playwright.junit.UsePlaywright;
 import com.ovidiomirada.playwright.HeadlessChromeOptions;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.CartLineItem;
@@ -12,16 +9,13 @@ import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.NavBar;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductDetails;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
-import com.ovidiomirada.playwright.toolshop.fixtures.PlaywrightTestCase;
-import java.nio.file.Paths;
 import java.util.List;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
 
-public class AddToCartTest extends PlaywrightTestCase {
+@UsePlaywright(HeadlessChromeOptions.class)
+public class AddToCartTest {
 
   SearchComponent searchComponent;
   ProductList productList;
@@ -30,12 +24,12 @@ public class AddToCartTest extends PlaywrightTestCase {
   CheckoutCart checkoutCart;
 
   @BeforeEach
-  void openHomePage() {
+  void openHomePage(Page page) {
     page.navigate("https://practicesoftwaretesting.com");
   }
 
   @BeforeEach
-  void setUp() {
+  void setUp(Page page) {
     searchComponent = new SearchComponent(page);
     productList = new ProductList(page);
     productDetails = new ProductDetails(page);
@@ -43,7 +37,7 @@ public class AddToCartTest extends PlaywrightTestCase {
     checkoutCart = new CheckoutCart(page);
   }
 
-   @Test
+  @Test
   void whenCheckingOutASingleItem() {
     searchComponent.searchBy("pliers");
     productList.viewProductDetails("Combination Pliers");

@@ -2,16 +2,19 @@ package com.ovidiomirada.playwright.toolshop.login;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.junit.UsePlaywright;
+import com.ovidiomirada.playwright.HeadlessChromeOptions;
 import com.ovidiomirada.playwright.toolshop.domain.User;
-import com.ovidiomirada.playwright.toolshop.fixtures.PlaywrightTestCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class LoginWithRegisteredUserTest extends PlaywrightTestCase {
+@UsePlaywright(HeadlessChromeOptions.class)
+public class LoginWithRegisteredUserTest {
 
   @Test
   @DisplayName("Should be able to login with a registered user")
-  void should_login_with_registered_user() {
+  void should_login_with_registered_user(Page page) {
     // Register a user via the API
     User user = User.randomUser();
     UserAPIClient userAPIClient = new UserAPIClient(page);
@@ -28,7 +31,7 @@ public class LoginWithRegisteredUserTest extends PlaywrightTestCase {
 
   @Test
   @DisplayName("Should reject a user if they provide a wrong password")
-  void should_reject_user_with_invalid_password() {
+  void should_reject_user_with_invalid_password(Page page) {
     User user = User.randomUser();
     UserAPIClient userAPIClient = new UserAPIClient(page);
     userAPIClient.registerUser(user);
