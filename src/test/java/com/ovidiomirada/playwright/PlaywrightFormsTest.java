@@ -87,47 +87,47 @@ public class PlaywrightFormsTest {
 
       assertThat(errorMessage).isVisible();
     }
-  }
 
-  @DisplayName("Text fields")
-  @Test
-  void textFieldValues(Page page) {
-    var messageField = page.getByLabel("Message");
-    messageField.fill("This is my message");
-    assertThat(messageField).hasValue("This is my message");
-  }
+    @DisplayName("Text fields")
+    @Test
+    void textFieldValues(Page page) {
+      var messageField = page.getByLabel("Message");
+      messageField.fill("This is my message");
+      assertThat(messageField).hasValue("This is my message");
+    }
 
-  @DisplayName("Dropdown lists")
-  @Test
-  void dropdownFieldValues(Page page) {
-    var subjectField = page.getByLabel("Subject");
-    subjectField.selectOption("Warranty");
-    assertThat(subjectField).hasValue("warranty");
-  }
+    @DisplayName("Dropdown lists")
+    @Test
+    void dropdownFieldValues(Page page) {
+      var subjectField = page.getByLabel("Subject");
+      subjectField.selectOption("Warranty");
+      assertThat(subjectField).hasValue("warranty");
+    }
 
-  @DisplayName("File uploads")
-  @Test
-  void fileUploads(Page page) throws URISyntaxException {
-    var attachmentField = page.getByLabel("Attachment");
-    Path attachment = Paths.get(ClassLoader.getSystemResource("data/sample-data.txt").toURI());
-    page.setInputFiles("#attachment", attachment);
-    String uploadedFile = attachmentField.inputValue();
-    org.assertj.core.api.Assertions.assertThat(uploadedFile).endsWith("sample-data.txt");
-  }
+    @DisplayName("File uploads")
+    @Test
+    void fileUploads(Page page) throws URISyntaxException {
+      var attachmentField = page.getByLabel("Attachment");
+      Path attachment = Paths.get(ClassLoader.getSystemResource("data/sample-data.txt").toURI());
+      page.setInputFiles("#attachment", attachment);
+      String uploadedFile = attachmentField.inputValue();
+      org.assertj.core.api.Assertions.assertThat(uploadedFile).endsWith("sample-data.txt");
+    }
 
-  @DisplayName("By CSS class")
-  @Test
-  void locateTheSendButtonByCssClass(Page page) {
-    page.locator("#first_name").fill("Sarah-Jane");
-    page.locator(".btnSubmit").click();
-    List<String> alertMessages = page.locator(".alert").allTextContents();
-    Assertions.assertTrue(!alertMessages.isEmpty());
-  }
+    @DisplayName("By CSS class")
+    @Test
+    void locateTheSendButtonByCssClass(Page page) {
+      page.locator("#first_name").fill("Sarah-Jane");
+      page.locator(".btnSubmit").click();
+      List<String> alertMessages = page.locator(".alert").allTextContents();
+      Assertions.assertTrue(!alertMessages.isEmpty());
+    }
 
-  @DisplayName("By attribute")
-  @Test
-  void locateTheSendButtonByAttribute(Page page) {
-    page.locator("input[placeholder='Your last name *']").fill("Smith");
-    assertThat(page.locator("#last_name")).hasValue("Smith");
+    @DisplayName("By attribute")
+    @Test
+    void locateTheSendButtonByAttribute(Page page) {
+      page.locator("input[placeholder='Your last name *']").fill("Smith");
+      assertThat(page.locator("#last_name")).hasValue("Smith");
+    }
   }
 }

@@ -1,6 +1,9 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.12.0'
 }
+
+apply plugin: 'io.qameta.allure'
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -14,6 +17,14 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.11.4'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.27.0'
     testImplementation group: 'net.datafaker', name: 'datafaker', version: '2.4.2'
+
+    // [OM] Allure dependencies.
+    implementation group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.29.1'
+    testImplementation group: 'io.qameta.allure', name: 'allure-junit5', version: '2.29.1'
+}
+
+allure {
+    version = '2.21.0'
 }
 
 test {
