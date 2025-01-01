@@ -1,4 +1,4 @@
-package com.ovidiomirada.playwright.toolshop;
+package com.ovidiomirada.playwright.toolshop.catalog;
 
 
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;

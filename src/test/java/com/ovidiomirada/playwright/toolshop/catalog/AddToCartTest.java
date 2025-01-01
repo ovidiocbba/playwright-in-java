@@ -1,4 +1,4 @@
-package com.ovidiomirada.playwright.toolshop;
+package com.ovidiomirada.playwright.toolshop.catalog;
 
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.junit.UsePlaywright;
@@ -38,7 +38,7 @@ public class AddToCartTest {
   }
 
   @Test
-  void whenCheckingOutASingleItem() {
+  void whenCheckingOutASingleItem(Page page) {
     searchComponent.searchBy("pliers");
     productList.viewProductDetails("Combination Pliers");
 
