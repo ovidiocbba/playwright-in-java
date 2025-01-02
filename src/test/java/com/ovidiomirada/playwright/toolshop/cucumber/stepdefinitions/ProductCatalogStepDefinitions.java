@@ -3,10 +3,14 @@ package com.ovidiomirada.playwright.toolshop.cucumber.stepdefinitions;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.NavBar;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
+import com.ovidiomirada.playwright.toolshop.fixtures.ProductSummary;
 import io.cucumber.java.Before;
+import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.List;
+import java.util.Map;
 import org.assertj.core.api.Assertions;
 
 public class ProductCatalogStepDefinitions {
@@ -36,5 +40,11 @@ public class ProductCatalogStepDefinitions {
   public void the_product_should_be_displayed(String productName) {
     var matchingProducts = productList.getProductNames();
     Assertions.assertThat(matchingProducts).contains(productName);
+  }
+
+  @Then("the following products should be displayed:")
+  public void theFollowingProductsShouldBeDisplayed(List<String> expectedProduct) {
+    var matchingProducts = productList.getProductNames();
+    Assertions.assertThat(matchingProducts).containsAll(expectedProduct);
   }
 }
