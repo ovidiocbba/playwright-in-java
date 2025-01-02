@@ -19,7 +19,7 @@ public class PlaywrightCucumberFixtures {
   });
 
   private static final ThreadLocal<Browser> browser = ThreadLocal.withInitial(
-      () -> playwright.get().chromium().launch(new BrowserType.LaunchOptions().setHeadless(true)
+      () -> playwright.get().chromium().launch(new BrowserType.LaunchOptions().setHeadless(false)
           .setArgs(Arrays.asList("--no-sandbox", "--disable-extensions", "--disable-gpu"))));
 
   private static final ThreadLocal<BrowserContext> browserContext = new ThreadLocal<>();
