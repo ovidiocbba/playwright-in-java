@@ -3,7 +3,7 @@ package com.ovidiomirada.playwright.toolshop.cucumber.stepdefinitions;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.NavBar;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
-import com.ovidiomirada.playwright.toolshop.fixtures.ProductSummary;
+import com.ovidiomirada.playwright.toolshop.domain.ProductSummary;
 import io.cucumber.java.Before;
 import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.Given;
@@ -42,9 +42,15 @@ public class ProductCatalogStepDefinitions {
     Assertions.assertThat(matchingProducts).contains(productName);
   }
 
+  @DataTableType
+  public ProductSummary productSummaryRow(Map<String, String> productData) {
+    return new ProductSummary(productData.get("Product"), productData.get("Price"));
+  }
+
   @Then("the following products should be displayed:")
-  public void theFollowingProductsShouldBeDisplayed(List<String> expectedProduct) {
-    var matchingProducts = productList.getProductNames();
-    Assertions.assertThat(matchingProducts).containsAll(expectedProduct);
+  public void theFollowingProductsShouldBeDisplayed(List<ProductSummary> expectedProductSummaries) {
+    List<ProductSummary> matchingProducts = productList.getProductSummaries();
+    Assertions.assertThat(matchingProducts)
+        .containsExactlyInAnyOrderElementsOf(expectedProductSummaries);
   }
 }
