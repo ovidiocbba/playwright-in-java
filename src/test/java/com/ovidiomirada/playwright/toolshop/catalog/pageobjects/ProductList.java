@@ -1,6 +1,7 @@
 package com.ovidiomirada.playwright.toolshop.catalog.pageobjects;
 
 import com.microsoft.playwright.Page;
+import com.ovidiomirada.playwright.toolshop.fixtures.ScreenshotManager;
 import io.qameta.allure.Step;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class ProductList {
 
   @Step("View product details")
   public void viewProductDetails(String productName) {
+    ScreenshotManager.takeScreenshot(page, "View product details for " + productName);
     page.locator(".card").getByText(productName).click();
   }
 

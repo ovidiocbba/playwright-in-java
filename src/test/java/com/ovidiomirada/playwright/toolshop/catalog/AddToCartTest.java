@@ -9,6 +9,7 @@ import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.NavBar;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductDetails;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
+import com.ovidiomirada.playwright.toolshop.fixtures.TakesFinalScreenshot;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import java.util.List;
@@ -20,7 +21,7 @@ import org.junit.jupiter.api.Test;
 @DisplayName("Shopping Cart")
 @Feature("Shopping Cart")
 @UsePlaywright(HeadlessChromeOptions.class)
-public class AddToCartTest {
+public class AddToCartTest implements TakesFinalScreenshot {
 
   SearchComponent searchComponent;
   ProductList productList;
