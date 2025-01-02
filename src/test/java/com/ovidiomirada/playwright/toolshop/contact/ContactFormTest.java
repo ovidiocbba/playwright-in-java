@@ -6,6 +6,8 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.junit.UsePlaywright;
 import com.ovidiomirada.playwright.HeadlessChromeOptions;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.NavBar;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,6 +17,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+@DisplayName("Contact form")
+@Feature("Contacts")
 @UsePlaywright(HeadlessChromeOptions.class)
 public class ContactFormTest {
 
@@ -28,6 +32,7 @@ public class ContactFormTest {
     navigate.toTheContactPage();
   }
 
+  @Story("Contact form")
   @DisplayName("Customers can use the contact form to contact us")
   @Test
   void completeForm(Page page) throws URISyntaxException {
@@ -48,6 +53,7 @@ public class ContactFormTest {
         "Thanks for your message! We will contact you shortly.");
   }
 
+  @Story("Contact form")
   @DisplayName("First name, last name, email and message are mandatory")
   @ParameterizedTest(name = "{arguments} is a mandatory field")
   @ValueSource(strings = {"First name", "Last name", "Email", "Message"})
@@ -69,6 +75,7 @@ public class ContactFormTest {
     assertThat(contactForm.alertMessage()).hasText(fieldName + " is required");
   }
 
+  @Story("Contact form")
   @DisplayName("The message must be at least 50 characters long")
   @Test
   void messageTooShort(Page page) {
@@ -85,6 +92,7 @@ public class ContactFormTest {
     assertThat(contactForm.alertMessage()).hasText("Message must be minimal 50 characters");
   }
 
+  @Story("Contact form")
   @DisplayName("The email address must be correctly formatted")
   @ParameterizedTest(name = "'{arguments}' should be rejected")
   @ValueSource(strings = {"not-an-email", "not-an.email.com", "notanemail"})

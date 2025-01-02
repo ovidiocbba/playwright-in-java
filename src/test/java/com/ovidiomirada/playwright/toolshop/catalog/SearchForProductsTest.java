@@ -5,6 +5,8 @@ import com.microsoft.playwright.junit.UsePlaywright;
 import com.ovidiomirada.playwright.HeadlessChromeOptions;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("Searching for products")
+@Feature("Product Catalog")
 @UsePlaywright(HeadlessChromeOptions.class)
 public class SearchForProductsTest {
 
@@ -22,6 +25,7 @@ public class SearchForProductsTest {
 
   @Nested
   @DisplayName("Searching by keyword")
+  @Story("Searching for products")
   class SearchingByKeyword {
 
     @Test

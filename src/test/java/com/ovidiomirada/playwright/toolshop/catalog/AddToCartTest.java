@@ -9,11 +9,16 @@ import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.NavBar;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductDetails;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.ProductList;
 import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+@DisplayName("Shopping Cart")
+@Feature("Shopping Cart")
 @UsePlaywright(HeadlessChromeOptions.class)
 public class AddToCartTest {
 
@@ -25,7 +30,7 @@ public class AddToCartTest {
 
   @BeforeEach
   void openHomePage(Page page) {
-    page.navigate("https://practicesoftwaretesting.com");
+    navBar.openHomePage();
   }
 
   @BeforeEach
@@ -38,11 +43,13 @@ public class AddToCartTest {
   }
 
   @Test
+  @Story("Checking out a product")
+  @DisplayName("Checking out a single item")
   void whenCheckingOutASingleItem() {
     searchComponent.searchBy("pliers");
     productList.viewProductDetails("Combination Pliers");
 
-    productDetails.increaseQuanityBy(2);
+    productDetails.increaseQuantityBy(2);
     productDetails.addToCart();
 
     navBar.openCart();
@@ -57,10 +64,12 @@ public class AddToCartTest {
   }
 
   @Test
+  @Story("Checking out a product")
+  @DisplayName("Checking out multiple items")
   void whenCheckingOutMultipleItems() {
     navBar.openHomePage();
     productList.viewProductDetails("Bolt Cutters");
-    productDetails.increaseQuanityBy(2);
+    productDetails.increaseQuantityBy(2);
     productDetails.addToCart();
 
     navBar.openHomePage();
