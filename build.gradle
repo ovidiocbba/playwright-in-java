@@ -20,7 +20,13 @@ dependencies {
 
     // [OM] Allure dependencies.
     implementation group: 'io.qameta.allure', name: 'allure-java-commons', version: '2.29.1'
-    testImplementation group: 'io.qameta.allure', name: 'allure-junit5', version: '2.29.1'
+    implementation group: 'io.qameta.allure', name: 'allure-junit5', version: '2.29.1'
+    implementation group: 'io.qameta.allure', name: 'allure-cucumber7-jvm', version: '2.29.1'
+
+
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite', version: '1.11.4'
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: '7.20.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: '7.20.1'
 }
 
 allure {
