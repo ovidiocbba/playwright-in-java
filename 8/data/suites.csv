@@ -1,0 +1,41 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"  As a customer,
+  I want to easily search, filter, and sort products in the catalog
+  So that I can find what I need quickly.
+
+  Sally is an online shopper","18021","The one where Sally searches for an Adjustable Wrench","","Fri Jan 03 18:51:57 GMT 2025","passed","Fri Jan 03 18:52:15 GMT 2025","","Product Catalog","The one where Sally searches for an Adjustable Wrench",""
+"  As a customer,
+  I want to easily search, filter, and sort products in the catalog
+  So that I can find what I need quickly.
+
+  Sally is an online shopper","18405","The one where Sally only wants to see Hand Saws","","Fri Jan 03 18:51:57 GMT 2025","passed","Fri Jan 03 18:52:15 GMT 2025","","Product Catalog","The one where Sally only wants to see Hand Saws",""
+"  As a customer,
+  I want to easily search, filter, and sort products in the catalog
+  So that I can find what I need quickly.
+
+  Sally is an online shopper","18071","Sally sorts by different criteria","","Fri Jan 03 18:51:57 GMT 2025","passed","Fri Jan 03 18:52:15 GMT 2025","","Product Catalog","Sally sorts by different criteria",""
+"  As a customer,
+  I want to easily search, filter, and sort products in the catalog
+  So that I can find what I need quickly.
+
+  Sally is an online shopper","18007","The one where Sally searches for a product that doesn't exist","","Fri Jan 03 18:51:57 GMT 2025","passed","Fri Jan 03 18:52:15 GMT 2025","","Product Catalog","The one where Sally searches for a product that doesn't exist",""
+"  As a customer,
+  I want to easily search, filter, and sort products in the catalog
+  So that I can find what I need quickly.
+
+  Sally is an online shopper","2453","The one where Sally searches for a more general term","","Fri Jan 03 18:52:15 GMT 2025","passed","Fri Jan 03 18:52:18 GMT 2025","","Product Catalog","The one where Sally searches for a more general term",""
+"  As a customer,
+  I want to easily search, filter, and sort products in the catalog
+  So that I can find what I need quickly.
+
+  Sally is an online shopper","2032","Sally sorts by different criteria","","Fri Jan 03 18:52:15 GMT 2025","passed","Fri Jan 03 18:52:18 GMT 2025","","Product Catalog","Sally sorts by different criteria",""
+"  As a customer,
+  I want to easily search, filter, and sort products in the catalog
+  So that I can find what I need quickly.
+
+  Sally is an online shopper","2303","Sally sorts by different criteria","","Fri Jan 03 18:52:15 GMT 2025","passed","Fri Jan 03 18:52:17 GMT 2025","","Product Catalog","Sally sorts by different criteria",""
+"  As a customer,
+  I want to easily search, filter, and sort products in the catalog
+  So that I can find what I need quickly.
+
+  Sally is an online shopper","1467","Sally sorts by different criteria","","Fri Jan 03 18:52:17 GMT 2025","passed","Fri Jan 03 18:52:19 GMT 2025","","Product Catalog","Sally sorts by different criteria",""
