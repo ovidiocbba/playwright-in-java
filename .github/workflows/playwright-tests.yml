@@ -62,13 +62,13 @@ jobs:
 #          restore-keys: |
 #            ${{ runner.os }}-maven
 
-      # Step 6: Install npm dependencies, including http-server
-      - name: Install npm dependencies
-        run: |
-          cd react-todomvc
-          npm install
-          npm install -g http-server            
-          cd ..
+#      # Step 6: Install npm dependencies, including http-server
+#      - name: Install npm dependencies
+#        run: |
+#          cd react-todomvc
+#          npm install
+#          npm install -g http-server
+#          cd ..
 
       - name: Install Playwright dependencies
         run: npx playwright install-deps
