@@ -32,4 +32,11 @@ public class SearchComponent {
       page.getByLabel(filterName).click();
     });
   }
+
+  public void sortBy(String sortFilter) {
+    page.waitForResponse("**/products?sort=**", () -> {
+      page.getByTestId("sort").selectOption(sortFilter);
+    });
+    page.waitForTimeout(250);
+  }
 }
