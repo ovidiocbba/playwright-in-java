@@ -41,7 +41,7 @@ jobs:
 
       # Step 3: Install Gradle
       - name: Set up Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/gradle-build-action@v4
         with:
           gradle-version: 8.12
 
