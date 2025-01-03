@@ -1,0 +1,50 @@
+name: 'Deploy Allure Report'
+description: 'Deploy report to Github Pages'
+
+# Inputs the action accepts.
+inputs:
+  allure_results_path:
+    description: 'Allure results path: ./allure-results'
+    required: true
+  publish_name_branch:
+    description: 'Publish branch: gh-pages'
+    required: true
+  github_token:
+    description: 'Github token'
+    required: true
+
+runs:
+  using: 'composite'
+
+  steps:
+    # First, make sure you have created your 'orphaned' branch to save the reports.
+    # e.g: 'gh-pages'
+
+    # You can follow the below steps to create it:
+    # git checkout --orphan gh-pages
+    # git reset --hard
+    # git commit --allow-empty -m "Initial commit on gh_pages branch"
+    # git push origin gh-pages
+
+    - name: Get Allure history
+      uses: actions/checkout@v4
+      continue-on-error: true
+      with:
+        ref: ${{ inputs.publish_name_branch }}
+        path: ${{ inputs.publish_name_branch }}
+
+    - name: Allure Report action from marketplace
+      uses: simple-elf/allure-report-action@master
+      id: allure-report
+      with:
+        allure_results: ${{ inputs.allure_results_path }}
+        gh_pages: ${{ inputs.publish_name_branch }}
+        allure_report: allure-report
+        allure_history: allure-history
+
+    - name: Deploy report to Github Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ inputs.github_token }}
+        publish_branch: ${{ inputs.publish_name_branch }}
+        publish_dir: allure-history

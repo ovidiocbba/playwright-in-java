@@ -1,0 +1,104 @@
+name: Playwright Tests
+
+# Trigger the workflow on every push to any branch
+on:
+  push:
+    branches:
+      - '**'  # Run on every branch for every commit
+  pull_request:
+    branches:
+      - '**'  # Run on every pull request for any branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      # Step 2: Set up JDK 21 (adjust if you're using a different version)
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'adopt'
+
+      # Step 3: Install Maven 3.9.9
+#      - name: Setup Maven Action
+#        uses: s4u/setup-maven-action@v1.7.0
+#        with:
+#          checkout-fetch-depth: 0
+#          java-version: 17
+#          java-distribution: temurin
+#          maven-version: 3.9.9
+
+      # Step 3: Install Gradle
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.12
+
+#      # Step 4: Verify Maven installation
+#      - name: Verify Maven version
+#        run: mvn --version
+
+      # Step 4: Verify Gradle installation
+      - name: Verify Gradle version
+        run: gradle --version
+
+#      # Step 5: Cache Maven dependencies
+#      - name: Cache Maven dependencies
+#        uses: actions/cache@v3
+#        with:
+#          path: ~/.m2
+#          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-maven
+
+      # Step 6: Install npm dependencies, including http-server
+      - name: Install npm dependencies
+        run: |
+          cd react-todomvc
+          npm install
+          npm install -g http-server            
+          cd ..
+
+      - name: Install Playwright dependencies
+        run: npx playwright install-deps
+
+#      # Step 6: Run Maven to execute Playwright tests
+#      - name: Run Playwright Tests
+#        run: mvn verify
+
+      # Step 6: Run Gradle to execute Playwright tests
+      - name: Run Playwright Tests
+        run: gradle test --tests CucumberTests
+
+      # Step 7: Archive any trace files
+      - name: Archive trace files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: traces
+          path: target/traces/*.zip
+
+      # Step 8: Deploy Allure report to GitHub Pages
+      - name: Deploy allure report
+        # Always execute this step, regardless of the success or failure of previous steps.
+        if: always()
+        # Use a custom action located in the .github/actions directory to deploy the Allure report
+        uses: ./.github/actions/deploy_allure_report
+        with:
+          # Path to the directory containing Allure test results.
+          allure_results_path: build/allure-results
+          # Name of the branch to publish the report to (gh-pages for GitHub Pages)
+          publish_name_branch: gh-pages
+          # GitHub token to authenticate the action for publishing.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
