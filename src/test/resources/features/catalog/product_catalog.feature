@@ -19,3 +19,9 @@ Feature: Product Catalog
         | Product      | Price  |
         | Wood Saw     | $12.18 |
         | Circular Saw | $80.19 |
+
+    Example: The one where Sally searches for a product that doesn't exist
+      Given Sally is on the home page
+      When she searches for "Product-Does-Not-Exist"
+      Then no products should be displayed
+      And the message "There are no products found." should be displayed

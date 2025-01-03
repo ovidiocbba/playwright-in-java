@@ -6,6 +6,7 @@ import com.ovidiomirada.playwright.toolshop.catalog.pageobjects.SearchComponent;
 import com.ovidiomirada.playwright.toolshop.domain.ProductSummary;
 import io.cucumber.java.Before;
 import io.cucumber.java.DataTableType;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -52,5 +53,17 @@ public class ProductCatalogStepDefinitions {
     List<ProductSummary> matchingProducts = productList.getProductSummaries();
     Assertions.assertThat(matchingProducts)
         .containsExactlyInAnyOrderElementsOf(expectedProductSummaries);
+  }
+
+  @Then("no products should be displayed")
+  public void noProductsShouldBeDisplayed() {
+    List<ProductSummary> matchingProducts = productList.getProductSummaries();
+    Assertions.assertThat(matchingProducts).isEmpty();
+  }
+
+  @And("the message {string} should be displayed")
+  public void theMessageShouldBeDisplayed(String messageText) {
+    String completionMessage = productList.getSearchCompletedMessage();
+    Assertions.assertThat(completionMessage).isEqualTo(messageText);
   }
 }
