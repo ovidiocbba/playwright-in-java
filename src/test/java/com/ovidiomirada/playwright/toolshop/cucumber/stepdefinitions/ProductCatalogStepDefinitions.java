@@ -66,4 +66,9 @@ public class ProductCatalogStepDefinitions {
     String completionMessage = productList.getSearchCompletedMessage();
     Assertions.assertThat(completionMessage).isEqualTo(messageText);
   }
+
+  @And("she filters by {string}")
+  public void sheFiltersBy(String filterName) {
+    searchComponent.filterBy(filterName);
+  }
 }

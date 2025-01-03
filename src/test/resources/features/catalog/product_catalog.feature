@@ -25,3 +25,12 @@ Feature: Product Catalog
       When she searches for "Product-Does-Not-Exist"
       Then no products should be displayed
       And the message "There are no products found." should be displayed
+
+  Rule: Customers should be able to narrow downs their search by category
+    Example: The one where Sally only wants to see Hand Saws
+      Given Sally is on the home page
+      When she searches for "saw"
+      And she filters by "Hand Saw"
+      Then the following products should be displayed:
+        | Product  | Price  |
+        | Wood Saw | $12.18 |
