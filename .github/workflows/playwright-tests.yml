@@ -14,6 +14,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    # These permissions are required to generate reports.
+    permissions:
+      contents: write # To push a branch (gh_pages).
 
     steps:
       # Step 1: Check out the repository code
